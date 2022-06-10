@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace属性：用于指定当前的映射文件和哪个接口进行映射，需要制定接口的文件路径，需要标注包的完整路径结构-->
+<mapper namespace="com.cy.store.mapper.CartMapper">
+    <resultMap id="CartEntityMap" type="com.cy.store.entity.Cart">
+        <!-- 配置映射时，id必须配置，其余名称不一样的属性需要配置 -->
+        <id column="cid" property="cid"/>
+        <result column="created_user" property="createdUser"/>
+        <result column="created_time" property="createdTime"/>
+        <result column="modified_user" property="modifiedUser"/>
+        <result column="modified_time" property="modifiedTime"/>
+    </resultMap>
+
+    <!-- 插入购物车数据 -->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="cid">
+        INSERT INTO t_cart (uid, pid, price, num,
+                            created_user, created_time, modified_user, modified_time)
+        VALUES (#{uid}, #{pid}, #{price}, #{num},
+                #{createdUser}, #{createdTime}, #{modifiedUser}, #{modifiedTime})
+    </insert>
+
+    <!-- 修改购物车数据中商品的数量 -->
+    <update id="updateNumByCid">
+        UPDATE t_cart
+        SET num = #{num},
+            modified_user = #{modifiedUser},
+            modified_time = #{modifiedTime}
+        WHERE cid = #{cid}
+    </update>
+
+    <!-- 根据用户id和商品id查询购物车中的数据 -->
+    <select id="findByUidAndPid" resultMap="CartEntityMap">
+        SELECT *
+        FROM t_cart
+        WHERE uid = #{uid} AND pid = #{pid}
+    </select>
+
+    <!-- 查询某用户的购物车数据 -->
+    <select id="findVOByUid" resultType="com.cy.store.vo.CartVO">
+        SELECT cid, uid, pid,
+               t_cart.price, t_cart.num,
+               t_product.title, t_product.price AS realPrice,
+               t_product.image
+        FROM t_cart LEFT JOIN t_product ON t_cart.pid = t_product.id
+        WHERE uid = #{uid}
+        ORDER BY t_cart.created_time DESC
+    </select>
+
+    <!-- 根据购物车数据id查询购物车数据详情 -->
+    <select id="findByCid" resultMap="CartEntityMap">
+        SELECT *
+        FROM t_cart
+        WHERE cid = #{cid}
+    </select>
+
+<!--    根据若干个购物车数据id查询详情的列表-->
+    <select id="findVOByCids" resultType="com.cy.store.vo.CartVO">
+        SELECT cid, uid, pid, t_cart.price, t_cart.num, t_product.title,
+        t_product.price AS realPrice,
+        t_product.image
+        FROM t_cart LEFT JOIN t_product ON t_cart.pid = t_product.id
+        WHERE cid IN (
+            <foreach collection="array" item="cid" separator=",">
+                #{cid}
+            </foreach>
+            )
+        ORDER BY t_cart.created_time DESC
+    </select>
+
+    <!-- 通过购物车id删除购物车商品数据 -->
+    <update id="deleteByCid">
+        DELETE FROM t_cart
+        WHERE cid = #{cid}
+    </update>
+
+</mapper>

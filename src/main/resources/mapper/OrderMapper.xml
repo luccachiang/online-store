@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cy.store.mapper.OrderMapper">
+
+    <!-- 插入订单数据 -->
+    <insert id="insertOrder" useGeneratedKeys="true" keyProperty="oid">
+        INSERT INTO t_order (
+            uid, recv_name, recv_phone, recv_province, recv_city, recv_area, recv_address,
+            total_price,status, order_time, pay_time, created_user, created_time, modified_user,
+            modified_time
+        ) VALUES (
+            #{uid}, #{recvName}, #{recvPhone}, #{recvProvince}, #{recvCity}, #{recvArea},
+            #{recvAddress}, #{totalPrice}, #{status}, #{orderTime}, #{payTime}, #{createdUser},
+            #{createdTime}, #{modifiedUser}, #{modifiedTime}
+        )
+    </insert>
+
+    <!-- 插入订单商品数据 -->
+    <insert id="insertOrderItem" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO t_order_item (
+            oid, pid, title, image, price, num, created_user,
+            created_time, modified_user, modified_time
+        ) VALUES (
+            #{oid}, #{pid}, #{title}, #{image}, #{price}, #{num}, #{createdUser},
+            #{createdTime}, #{modifiedUser}, #{modifiedTime}
+        )
+    </insert>
+
+    <!-- 查询某用户的订单数据 -->
+    <select id="findVOByUid" resultType="com.cy.store.vo.OrderVO">
+        SELECT t_order.oid, uid, pid,
+               t_order_item.price, t_order_item.num,
+               t_order_item.title, t_order_item.image,
+               t_order.recv_name AS recvName,
+               t_order.order_time AS orderTime
+        FROM t_order LEFT JOIN t_order_item ON t_order.oid = t_order_item.oid
+        WHERE uid = #{uid}
+        ORDER BY t_order.created_time DESC
+    </select>
+</mapper>
