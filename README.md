@@ -58,4 +58,4 @@ Here is our database design (underline indicates primary key):\
 We provide our final demo video in this repository.
 
 ## Acknowledgement
-Our project refers this video tutorial on Bilibili: https://www.bilibili.com/video/BV1bf4y1V7Bx/?share_source=copy_web&vd_source=d0c35bd945166518afac48af8599f9c1. Based on this codebase, we added our own elements.
+Our project referred to this video tutorial on Bilibili: https://www.bilibili.com/video/BV1bf4y1V7Bx/?share_source=copy_web&vd_source=d0c35bd945166518afac48af8599f9c1. Based on this codebase, we added our own elements.
