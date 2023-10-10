@@ -40,7 +40,7 @@ We involved several functional requirements as listed below.
 - Delete addresses
 
 All the functions are shown in the following picture in Chinese:
-![alt functions zh](.\assets/imgs/func_zh.png)
+![alt functions zh](./assets/imgs/func_zh.png)
 
 ## Database Design
 Here is our database design (underline indicates primary key):\
