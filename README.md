@@ -44,15 +44,15 @@ All the functions are shown in the following picture in Chinese:
 
 ## Database Design
 Here is our database design (underline indicates primary key):\
-user(<u>uid</u>, username, password, salt, phone, email, gender, avatar, is_delete, created_user, created_time, modified_user, modified_time)\
-product(<u>pid</u>, item_type, title, sell_point, price, num, image, status, priority, created_time, created_user, modified_time, modified_user)\
-category(<u>ID</u>, parent_id, name, status, sort_order, is_parent, created_time, modified_time, created_user, modified_user)\
-address(<u>aid</u>, province_name, province_code,city_name,city_code,area_name,area_code, zip, address, phone, tel, tag, is_default, created_user, created_time ,modified_user, modified_time )\
-order(<u>oid</u>, uid, aid, status, total_price, pay_time, created_time, create_user, modified_time, modified_user)\
-cart(<u>uid</u>, product, price,num, created_time, created_user, modified_time, modified_user )\
-user_address(<u>uid, aid</u>)\
-order_item(<u>oid, pid</u>)\
-Product_category(<u>pid, ID</u>)
+user(<ins>uid</ins>, username, password, salt, phone, email, gender, avatar, is_delete, created_user, created_time, modified_user, modified_time)\
+product(<ins>pid</ins>, item_type, title, sell_point, price, num, image, status, priority, created_time, created_user, modified_time, modified_user)\
+category(<ins>ID</ins>, parent_id, name, status, sort_order, is_parent, created_time, modified_time, created_user, modified_user)\
+address(<ins>aid</ins>, province_name, province_code,city_name,city_code,area_name,area_code, zip, address, phone, tel, tag, is_default, created_user, created_time ,modified_user, modified_time )\
+order(<ins>oid</ins>, uid, aid, status, total_price, pay_time, created_time, create_user, modified_time, modified_user)\
+cart(<ins>uid</ins>, product, price,num, created_time, created_user, modified_time, modified_user )\
+user_address(<ins>uid, aid</ins>)\
+order_item(<ins>oid, pid</ins>)\
+Product_category(<ins>pid, ID</ins>)
 
 ## Other resources
 We provide our final demo video in this repository.
